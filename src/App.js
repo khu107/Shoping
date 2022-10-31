@@ -3,9 +3,13 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import { useState } from 'react';
 import data from './mook/data';
 import Card from './Conponent/Card/Card';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import Detail from './Conponent/Detail/Detail';
+import Event from './Conponent/Event/Event';
 
 function App() {
   const [shoese] = useState(data);
+  const navigate = useNavigate();
 
   return (
     <div className="App">
@@ -13,30 +17,37 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">MyShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Link to="/">Home</Link>
+            <Link to="/detail">Detail</Link>
           </Nav>
         </Container>
       </Navbar>
-      <div className="main-bg"></div>
-      <div className="container">
-        <div className="row">
-          {shoese.map((value, index) => {
-            return <Card shoese={shoese[index]} i={index + 1} />;
-          })}
-        </div>
-      </div>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <div className="main-bg"></div>
+              <div className="container">
+                <div className="row">
+                  {shoese.map((value, index) => {
+                    return <Card shoese={shoese[index]} i={index + 1} />;
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        />
+        <Route path="/detail" element={<Detail shoese={shoese} />} />
+        <Route path="/event" element={<Event />}>
+          <Route path="one" element={<div>ilk zakas qilsangiz sivga </div>} />
+          <Route path="two" element={<div> tugulgan kun sovgasi </div>} />
+        </Route>
+        <Route path="*" element={<div>404 not found</div>} />
+      </Routes>
     </div>
   );
 }
-// function Card(props) {
-//   return (
-//     <div className="col-md-4">
-//       <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%" />
-//       <h4>{props.shoese[1].title}</h4>
-//       <p>{props.shoese[1].price}</p>
-//     </div>
-//   );
-// }
 
 export default App;
