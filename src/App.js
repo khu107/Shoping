@@ -11,14 +11,31 @@ function App() {
   const [shoese] = useState(data);
   const navigate = useNavigate();
 
+  const onClicking = () => {
+    navigate('/');
+  };
+
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">MyShop</Navbar.Brand>
+          <Navbar.Brand style={{ cursor: 'pointer' }} onClick={onClicking}>
+            MyShop
+          </Navbar.Brand>
           <Nav className="me-auto">
-            <Link to="/">Home</Link>
-            <Link to="/detail">Detail</Link>
+            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+              Home
+            </Link>
+            <Link
+              to="/detail"
+              style={{
+                textDecoration: 'none',
+                color: 'white',
+                paddingLeft: '15px',
+              }}
+            >
+              Detail
+            </Link>
           </Nav>
         </Container>
       </Navbar>
