@@ -1,7 +1,7 @@
 import './App.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import Cart from './Conponent/Cart/Cart';
-import data from './mook/data.js';
+import PayCart from './Conponent/PayCart/PayCart';
 
 function App(prop) {
   return (
@@ -17,6 +17,7 @@ function App(prop) {
       </Navbar>
       <div className="main-bg"></div>
       <Cart />
+      {/* <PayCart /> */}
     </div>
   );
 }
