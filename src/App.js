@@ -1,23 +1,28 @@
 import './App.css';
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import Cart from './Conponent/Cart/Cart';
-import PayCart from './Conponent/PayCart/PayCart';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getTodo } from './redux/todoSlice';
+function App() {
+  const dispatch = useDispatch();
+  const todoData = useSelector((state) => {
+    return state.todo;
+  });
 
-function App(prop) {
+  useEffect(() => {
+    dispatch(getTodo());
+  }, []);
+  console.log(todoData.data);
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">Perfume</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-      <div className="main-bg"></div>
-      <Cart />
-      {/* <PayCart /> */}
+      {todoData.isLoading ? 'loading....' : ''}
+      {todoData.isError ? 'Error....' : ''}
+      {todoData.data.map((v) => {
+        return (
+          <div key={v.id}>
+            {v.id} {v.title}
+          </div>
+        );
+      })}
     </div>
   );
 }
